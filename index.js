@@ -62,15 +62,12 @@ function checkAnswer() {
         let selectedOption = $('input[name=options]:checked').val();
         if (selectedOption === currentQues.answer) {
             STORE.score += 1;
-            console.log('checkAnswer for loop is running');
-            // $('#main').append('Correct!');
             $('#main').append('<p class="answer-message">Correct! 🤟</p>');
         } else {
-            //$('#main').append(`Woops! The correct answer is ${STORE.questions[STORE.currentQuestion].answer}`);
             $('#main').append(`<p class="answer-message">Woops! The correct answer is ${STORE.questions[STORE.currentQuestion].answer}</p>`);
         };
-        STORE.currentQuestion += 1; // not working
-        $('.submit-button').hide(); // not working
+        STORE.currentQuestion += 1; 
+        $('.submit-button').hide(); 
         $('.next-button').show();
     });
     console.log('checkAnswer() is running');
@@ -81,7 +78,6 @@ function checkAnswer() {
 function renderNextQuestion() {
     $('#main').on('click', '.next-button', function(event){
         event.preventDefault;
-        //STORE.currentQuestion += 1; //or should this go here?
         if (STORE.currentQuestion === STORE.questions.length){
             displayResults();
             console.log('final question if statement is running')
@@ -92,7 +88,6 @@ function renderNextQuestion() {
     });
     console.log('renderNextQuestion() is running');
 }
-
 
 /* display final results at the end of quiz */
 
@@ -126,11 +121,8 @@ function displayResults() {
 function restartQuiz() {
     $('body').on('click', '#restart', function(event) {
         event.preventDefault;
-        //STORE.currentQuestion = 0;
-        //STORE.score = 0; 
         updateQuestionAndScore();
         renderAQuestion();
-        // $('#js-score').show();
     });
     console.log('restartQuiz() is running');
 }

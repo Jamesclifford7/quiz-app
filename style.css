@@ -4,14 +4,16 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
-.question-and-score {
-    background-color: #90e0ef;
-    margin: 0 auto; 
-}
-
 h1 {
     margin: 0 auto; 
     padding: 15px;
+}
+
+/* question and score styling + background color */
+
+.question-and-score {
+    background-color: #90e0ef;
+    margin: 0 auto; 
 }
 
 ul {
@@ -28,15 +30,15 @@ li {
     padding: 3px 0;
 }
 
+/* answer options */
+
 .js-options {
-    /* border: solid black; */
     text-align: left; 
     margin: 0 auto;
     width: 45%;
 }
 
 input, label {
-    /* border: solid blue; */ 
     margin: 5px;
 }
 
@@ -44,10 +46,14 @@ input, label {
     margin-top: 10px;
 }
 
+/* results */
+
 .results .score {
     text-align: center;
     padding: 10px; 
 }
+
+/* miscellaneous */
 
 img {
     margin: 0 auto;
@@ -61,6 +67,12 @@ h3 {
     margin: 0 auto; 
     padding: 20px;
 }
+
+#start {
+    margin-bottom: 10px;
+}
+
+/* media query */
 
 @media all and (min-width: 800px) {
     #js-questions .question, #js-questions .js-options {
