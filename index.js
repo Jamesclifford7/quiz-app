@@ -24,7 +24,7 @@ function renderAQuestion() {
     let options = '';
     for (i = 0; i < question.options.length; i++) {
         options += `<div>
-        <input type="radio" name="options" id="option${i}" value="${question.options[i]}">
+        <input type="radio" name="options" id="option${i}" value="${question.options[i]}" required>
         <label for="option${i}">${question.options[i]}</label>
         </div>`;
     };
@@ -64,7 +64,7 @@ function checkAnswer() {
             STORE.score += 1;
             console.log('checkAnswer for loop is running');
             // $('#main').append('Correct!');
-            $('#main').append('<p class="answer-message">Correct!</p>');
+            $('#main').append('<p class="answer-message">Correct! 🤟</p>');
         } else {
             //$('#main').append(`Woops! The correct answer is ${STORE.questions[STORE.currentQuestion].answer}`);
             $('#main').append(`<p class="answer-message">Woops! The correct answer is ${STORE.questions[STORE.currentQuestion].answer}</p>`);
@@ -75,24 +75,6 @@ function checkAnswer() {
     });
     console.log('checkAnswer() is running');
 }
-
-/*
-function generateCorrectAnswer() {
-    return(`<form class="feedback-form">
-    <label> You got this one correct! </label>
-    <button type="submit">
-      Next question
-    </button>
-  </form>`);
-  console.log('generateCorrrectAnswer is working');
-}
-*/
-
-/*
-function generateIncorrectAnswer() {
-
-} */
-
 
 /* render next question */
 
@@ -119,22 +101,20 @@ function displayResults() {
         `<div class="results">
             <form id="js-restart-quiz">
                 <fieldset>
-                <div class="row">
-                    <div class="col-12">
-                    <legend>Your Score is: ${STORE.score}/${STORE.questions.length}</legend>
-                    </div>
+                <div class="score">
+                    <span>Your score is: ${STORE.score}/${STORE.questions.length}</span>
                 </div>
-                
-                <div class="row">
-                    <div class="col-12">
-                    <button type="button" id="restart"> Restart Quiz </button>
-                    </div>
+                <img src="images/grant-green-1.jpg" alt="image of Grant Green" width=400>
+                <div class="restart-button">
+                    <button type="button" id="restart">Restart Quiz</button>
                 </div>
                 </fieldset>
             </form>
         </div>`
     );
+    $('.question-and-score').append('<h3>Finished!</h3>');
     $('#js-score').hide();
+    $('#js-answered').hide();
     STORE.currentQuestion = 0;
     STORE.score = 0; 
     $('#main').html(resultHtml);

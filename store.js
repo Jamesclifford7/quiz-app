@@ -25,7 +25,7 @@ STORE = {
         },
         //5 
         {
-            question: "Which company makes the famous phase 90 pedal?",
+            question: "Which company makes the famous Phase 90 pedal?",
             options: ["Electro-Harmonix", "Boss", "MXR", "Fulltone"],
             answer: "MXR"
         }

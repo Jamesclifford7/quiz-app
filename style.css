@@ -4,17 +4,28 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+.question-and-score {
+    background-color: #90e0ef;
+    margin: 0 auto; 
+}
+
+h1 {
+    margin: 0 auto; 
+    padding: 15px;
+}
+
 ul {
     text-align: center;
-    /* border: solid; */
-    width: 35%;
+    width: 40%;
     margin: 0 auto; 
-    padding-bottom: 10px;
+    padding: 10px;
 }
 
 li {
     list-style-type: none;
-    text-align: left;
+    /* text-align: center; */
+    /* margin; 0 auto; */
+    padding: 3px 0;
 }
 
 .js-options {
@@ -22,15 +33,38 @@ li {
     text-align: left; 
     margin: 0 auto;
     width: 45%;
-    /* border: solid; */
 }
 
 input, label {
-    /* border: solid blue; */
+    /* border: solid blue; */ 
     margin: 5px;
 }
 
 .submit-button, .next-button {
     margin-top: 10px;
-    /* border: solid salmon; */
+}
+
+.results .score {
+    text-align: center;
+    padding: 10px; 
+}
+
+img {
+    margin: 0 auto;
+}
+
+#js-restart-quiz .restart-button {
+    margin: 10px;
+}
+
+h3 {
+    margin: 0 auto; 
+    padding: 20px;
+}
+
+@media all and (min-width: 800px) {
+    #js-questions .question, #js-questions .js-options {
+        text-align: left;
+        width: 100%;
+    }
 }
