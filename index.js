@@ -2,33 +2,31 @@
 
 function startQuiz() {
     $('#start').on('click', function(event){
-        renderAQuestion();
-        updateQuestionAndScore();
+        $('#main').html(renderAQuestion);
+        $('.next-button').hide();
+        $('.question-and-score').html(updateQuestionAndScore);;
     });
-    console.log('startQuiz() is running');
 } 
 
 /* update question and score */
 
 function updateQuestionAndScore() {
-    let html = $(`<ul><li id="js-answered">Question Number: ${STORE.currentQuestion + 1}/${STORE.questions.length}</li><li id="js-score">Score: ${STORE.score}/${STORE.questions.length}</li></ul`);
-    // current score is updated in 'checkAnswer()' on line 75, current question is updated in renderNextQuestion() on line 96
-    $('.question-and-score').html(html);
-    console.log('updateQuestionAndScore() is running');
+    return `<ul><li id="js-answered">Question Number: ${STORE.currentQuestion + 1}/${STORE.questions.length}</li><li id="js-score">Score: ${STORE.score}/${STORE.questions.length}</li></ul`;
 }
 
 /* rendering questions and options */
 
 function renderAQuestion() {
-    let question = STORE.questions[STORE.currentQuestion];
+    const question = STORE.questions[STORE.currentQuestion];
     let options = '';
     for (i = 0; i < question.options.length; i++) {
         options += `<div>
         <input type="radio" name="options" id="option${i}" value="${question.options[i]}" required>
         <label for="option${i}">${question.options[i]}</label>
         </div>`;
-    };
-    const questionHTML = $(`
+    }; 
+    
+    return `
     <div>
         <form id="js-questions" class="question-form">
             <fieldset>
@@ -47,10 +45,7 @@ function renderAQuestion() {
             </fieldset>
         </form>
     </div>
-    `);
-    $('#main').html(questionHTML);
-    $('.next-button').hide();
-    console.log('renderAQuestion() is running');
+    `; 
 }
 
 /* check whether the response is right or wrong, display results and 'next' button */
@@ -58,8 +53,8 @@ function renderAQuestion() {
 function checkAnswer() {
     $('#main').on('submit', '.question-form', function(event) {
         event.preventDefault();
-        let currentQues = STORE.questions[STORE.currentQuestion];
-        let selectedOption = $('input[name=options]:checked').val();
+        const currentQues = STORE.questions[STORE.currentQuestion];
+        const selectedOption = $('input[name=options]:checked').val();
         if (selectedOption === currentQues.answer) {
             STORE.score += 1;
             $('#main').append('<p class="answer-message">Correct! 🤟</p>');
@@ -70,20 +65,26 @@ function checkAnswer() {
         $('.submit-button').hide(); 
         $('.next-button').show();
     });
-    console.log('checkAnswer() is running');
 }
 
 /* render next question */
 
 function renderNextQuestion() {
     $('#main').on('click', '.next-button', function(event){
-        event.preventDefault;
+        event.preventDefault();
         if (STORE.currentQuestion === STORE.questions.length){
-            displayResults();
+            $('.question-and-score').append('<h3>Finished!</h3>');
+            $('#main').html(displayResults);
+            $('#js-score').hide();
+            $('#js-answered').hide();
+            STORE.currentQuestion = 0;
+            STORE.score = 0; 
+            // displayResults();
             console.log('final question if statement is running')
         } else { 
-        renderAQuestion();
-        updateQuestionAndScore();
+            $('#main').html(renderAQuestion);
+            $('.next-button').hide();
+            $('.question-and-score').html(updateQuestionAndScore);
         }
     });
     console.log('renderNextQuestion() is running');
@@ -92,28 +93,37 @@ function renderNextQuestion() {
 /* display final results at the end of quiz */
 
 function displayResults() {
-    let resultHtml = $(
-        `<div class="results">
-            <form id="js-restart-quiz">
-                <fieldset>
-                <div class="score">
-                    <span>Your score is: ${STORE.score}/${STORE.questions.length}</span>
-                </div>
-                <img src="images/grant-green-1.jpg" alt="image of Grant Green" width=400>
-                <div class="restart-button">
-                    <button type="button" id="restart">Restart Quiz</button>
-                </div>
-                </fieldset>
-            </form>
-        </div>`
-    );
-    $('.question-and-score').append('<h3>Finished!</h3>');
-    $('#js-score').hide();
-    $('#js-answered').hide();
-    STORE.currentQuestion = 0;
-    STORE.score = 0; 
-    $('#main').html(resultHtml);
-    console.log('displayResults() is running');
+    if (STORE.score >= 4) {
+        return `<div class="results">
+        <form id="js-restart-quiz">
+            <fieldset>
+            <div class="score">
+                <span>Your score is: ${STORE.score}/${STORE.questions.length}</span><br>
+                <span>Excellent!</span>
+            </div>
+            <img src="images/waynes-world.jpg" alt="image of Wayne from Wayne's World" width=400>
+            <div class="restart-button">
+                <button type="button" id="restart">Restart Quiz</button>
+            </div>
+            </fieldset>
+        </form>
+    </div>`
+    } else {
+        return `<div class="results">
+        <form id="js-restart-quiz">
+            <fieldset>
+            <div class="score">
+                <span>Your score is: ${STORE.score}/${STORE.questions.length}</span><br>
+                <span>Keep practicing!</span>
+            </div>
+            <img src="images/grant-green-1.jpg" alt="image of Grant Green" width=400>
+            <div class="restart-button">
+                <button type="button" id="restart">Restart Quiz</button>
+            </div>
+            </fieldset>
+        </form>
+    </div>`
+    };
 }
 
 /* restart quiz */
@@ -121,19 +131,17 @@ function displayResults() {
 function restartQuiz() {
     $('body').on('click', '#restart', function(event) {
         event.preventDefault;
-        updateQuestionAndScore();
-        renderAQuestion();
+        $('.question-and-score').html(updateQuestionAndScore);
+        $('#main').html(renderAQuestion);
+        $('.next-button').hide();
     });
     console.log('restartQuiz() is running');
 }
 
 function handleQuizApp() {
     startQuiz();
-    // updateQuestionAndScore();
-    // renderAQuestion();
     checkAnswer();
     renderNextQuestion();
-    // displayResults();
     restartQuiz();
 }
 
